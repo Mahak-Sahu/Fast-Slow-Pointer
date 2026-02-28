@@ -1,0 +1,50 @@
+// method 1
+class Solution {
+    public int findDuplicate(int[] nums) {
+        Set<Integer> set= new HashSet<>();
+
+        for(int num:nums){
+            if(set.contains(num)){
+                return num;
+            }
+            set.add(num);
+        }return -1;
+    }
+}
+
+// method 2
+class Solution {
+    public int findDuplicate(int[] nums) {
+        boolean[] flag = new boolean[nums.length+1];
+        int ele=0;
+        for(int i=0 ; i<nums.length ;i++){
+            ele =nums[i];
+            if(flag[ele]==true){
+                return ele;
+            }else{
+                flag[ele]=true;
+            }
+        }return ele;
+    }
+}
+
+//method 3
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow=0, fast=0;
+
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+
+            if(slow == fast) break;
+        }while(slow != fast);
+
+        int n1=0, n2 = slow;
+
+        while(n1 != n2){
+            n1 = nums[n1];
+            n2 = nums[n2];
+        }return n1;
+    }
+}
